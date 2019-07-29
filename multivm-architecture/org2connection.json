@@ -1,0 +1,90 @@
+{
+    "name": "hlfv1-byfn-network-org2",
+    "x-type": "hlfv1",
+    "x-commitTimeout": 300,
+    "version": "1.0.0",
+    "client": {
+        "organization": "Org2",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300",
+                    "eventHub": "300",
+                    "eventReg": "300"
+                },
+                "orderer": "300"
+            }
+        }
+    },
+    "channels": {
+        "composerchannel": {
+            "orderers": [
+                "orderer.example.com:7050"
+            ],
+            "peers": {
+                "peer0.org2.example.com": {}
+            }
+        }
+    },
+    "organizations": {
+        "Org2": {
+            "mspid": "Org2MSP",
+            "peers": [
+                "peer0.org2.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca.org2.example.com"
+            ]
+        }
+    },
+    "orderers": {
+        "orderer.example.com": {
+            "url": "grpc://orderer.example.com:7050"
+        }
+    },
+    "peers": {
+        "peer0.org1.example.com": {
+            "url": "grpc://localhost:7051",
+            "eventUrl": "grpc://localhost:7053"
+        },
+        "peer1.org1.example.com": {
+            "url": "grpc://localhost:8051",
+            "eventUrl": "grpc://localhost:8053"
+        },
+        "peer2.org1.example.com": {
+            "url": "grpc://localhost:9051",
+            "eventUrl": "grpc://localhost:9053"
+        },
+        "peer0.org2.example.com": {
+            "url": "grpc://13.93.0.148:10051",
+            "eventUrl": "grpc://13.93.0.148:10053"
+        },
+        "peer1.org2.example.com": {
+            "url": "grpc://13.93.0.148:11051",
+            "eventUrl": "grpc://13.93.0.148:11053"
+        },
+        "peer2.org2.example.com": {
+            "url": "grpc://13.93.0.148:12051",
+            "eventUrl": "grpc://13.93.0.148:12053"
+        },
+        "peer0.org3.example.com": {
+            "url": "grpc://13.94.231.130:13051",
+            "eventUrl": "grpc://13.94.231.130:13053"
+        },
+        "peer1.org3.example.com": {
+            "url": "grpc://13.94.231.130:14051",
+            "eventUrl": "grpc://13.94.231.130:14053"
+        },
+        "peer2.org3.example.com": {
+            "url": "grpc://13.94.231.130:15051",
+            "eventUrl": "grpc://13.94.231.130:15053"
+        }
+
+    },
+    "certificateAuthorities": {
+        "ca.org2.example.com": {
+            "url": "http://13.93.0.148:7054",
+            "caName": "ca.org2.example.com"
+        }
+    }
+}

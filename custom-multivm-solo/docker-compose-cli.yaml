@@ -1,0 +1,113 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+volumes:
+  orderer.ticketChain.sfeir.lu:
+  peer0.sfeir.ticketChain.sfeir.lu:
+  peer1.sfeir.ticketChain.sfeir.lu:
+  peer0.ticketMaster.ticketChain.sfeir.lu:
+  peer1.ticketMaster.ticketChain.sfeir.lu:
+  peer0.bankRoute.ticketChain.sfeir.lu:
+  peer1.bankRoute.ticketChain.sfeir.lu:
+
+networks:
+  byfn:
+
+services:
+
+  orderer.ticketChain.sfeir.lu:
+    extends:
+      file:   base/docker-compose-base.yaml
+      service: orderer.ticketChain.sfeir.lu
+    container_name: orderer.ticketChain.sfeir.lu
+    networks:
+      - byfn
+
+  peer0.sfeir.ticketChain.sfeir.lu:
+    container_name: peer0.sfeir.ticketChain.sfeir.lu
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.sfeir.ticketChain.sfeir.lu
+    networks:
+      - byfn
+
+  peer1.sfeir.ticketChain.sfeir.lu:
+    container_name: peer1.sfeir.ticketChain.sfeir.lu
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.sfeir.ticketChain.sfeir.lu
+    networks:
+      - byfn
+
+  peer0.ticketMaster.ticketChain.sfeir.lu:
+    container_name: peer0.ticketMaster.ticketChain.sfeir.lu
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.ticketMaster.ticketChain.sfeir.lu
+    networks:
+      - byfn
+
+  peer1.ticketMaster.ticketChain.sfeir.lu:
+    container_name: peer1.ticketMaster.ticketChain.sfeir.lu
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.ticketMaster.ticketChain.sfeir.lu
+    networks:
+      - byfn
+  
+  peer0.bankRoute.ticketChain.sfeir.lu:
+    container_name: peer0.bankRoute.ticketChain.sfeir.lu
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.bankRoute.ticketChain.sfeir.lu
+    networks:
+      - byfn
+
+  peer1.bankRoute.ticketChain.sfeir.lu:
+    container_name: peer1.bankRoute.ticketChain.sfeir.lu
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.bankRoute.ticketChain.sfeir.lu
+    networks:
+      - byfn
+
+  cli:
+    container_name: cli
+    image: hyperledger/fabric-tools:$IMAGE_TAG
+    tty: true
+    stdin_open: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.sfeir.ticketChain.sfeir.lu:7051
+      - CORE_PEER_LOCALMSPID=SfeirMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/sfeir.ticketChain.sfeir.lu/peers/peer0.sfeir.ticketChain.sfeir.lu/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/sfeir.ticketChain.sfeir.lu/peers/peer0.sfeir.ticketChain.sfeir.lu/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/sfeir.ticketChain.sfeir.lu/peers/peer0.sfeir.ticketChain.sfeir.lu/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/sfeir.ticketChain.sfeir.lu/users/Admin@sfeir.ticketChain.sfeir.lu/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./chaincode/:/opt/gopath/src/github.com/chaincode
+        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+        - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+        - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    depends_on:
+      - orderer.ticketChain.sfeir.lu
+      - peer0.sfeir.ticketChain.sfeir.lu
+      - peer1.sfeir.ticketChain.sfeir.lu
+      - peer0.ticketMaster.ticketChain.sfeir.lu
+      - peer1.ticketMaster.ticketChain.sfeir.lu
+      - peer0.bankRoute.ticketChain.sfeir.lu
+      - peer1.bankRoute.ticketChain.sfeir.lu
+    networks:
+      - byfn
