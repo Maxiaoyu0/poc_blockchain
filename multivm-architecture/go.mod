@@ -3,6 +3,7 @@ module github.com/fabric-dev-servers-multipeer
 go 1.12
 
 require (
+	github.com/Knetic/govaluate v3.0.0+incompatible // indirect
 	github.com/VividCortex/gohistogram v1.0.0 // indirect
 	github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973 // indirect
 	github.com/cloudflare/cfssl v0.0.0-20180223231731-4e2dcbde5004 // indirect
@@ -32,7 +33,7 @@ require (
 	github.com/spf13/pflag v1.0.1 // indirect
 	github.com/spf13/viper v1.0.2 // indirect
 	github.com/stretchr/testify v1.3.0 // indirect
-	golang.org/x/crypto v0.0.0-20180505025534-4ec37c66abab // indirect
+	golang.org/x/crypto v0.1.0 // indirect
 	google.golang.org/genproto v0.0.0-20190327125643-d831d65fe17d // indirect
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 )
